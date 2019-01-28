@@ -16,6 +16,13 @@ namespace desafio_.Net.Contexts
             modelBuilder.Entity<Phone>()
                 .HasOne(p => p.Usuario)
                 .WithMany(u => u.Phones);
+
+            modelBuilder.Entity<Phone>()
+            .HasKey(p => p.number);
+            
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.UsuarioID)
+                .ValueGeneratedOnAdd();
         }
 
     }

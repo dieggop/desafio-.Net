@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using desafio_.Net.Contexts;
+using desafio_.Net.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace desafio_.Net
             
             services.AddDbContext<UsuarioDbContext>(options => options.UseSqlite(Configuration.GetConnectionString(""))
             );
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
             services.AddMvc();
         }
 
