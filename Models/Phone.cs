@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace desafio_.Net.Models
 {
+    [Table("Phones")]
     public class Phone
     {
         [Key]

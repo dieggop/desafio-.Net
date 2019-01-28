@@ -25,6 +25,13 @@ namespace desafio_.Net.Repository
             return _contextDb.Usuarios.FirstOrDefault(u => u.UsuarioID == id);
         }
 
+        public IEnumerable<Usuario> FindByEmail(string busca)
+        {
+            return _contextDb.Usuarios.Where(
+                u => u.email.Contains(busca)
+            );
+        }
+
         public IEnumerable<Usuario> GetAll()
         {
             return _contextDb.Usuarios.ToList();

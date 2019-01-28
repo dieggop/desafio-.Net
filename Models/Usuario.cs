@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace desafio_.Net.Models
 {
+    [Table("Usuarios")]
     public class Usuario
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
