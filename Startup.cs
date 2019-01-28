@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using desafio_.Net.Contexts;
 using desafio_.Net.Repository;
+using desafio_.Net.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,10 +29,14 @@ namespace desafio_.Net
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddDbContext<UsuarioDbContext>(options => options.UseSqlite(Configuration.GetConnectionString(""))
+            var connection = Configuration["ConnectionsStrings:DefaultConnection"];
+
+            services.AddDbContext<UsuarioDbContext>(options => 
+            options.UseSqlite(connection)
             );
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IUsuariosServices, UsuariosServices>();
+            
             services.AddMvc();
         }
 

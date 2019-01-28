@@ -25,5 +25,10 @@ namespace desafio_.Net.Contexts
                 .ValueGeneratedOnAdd();
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Data Source=baseSqLite.db");
+    }
+
     }
 }

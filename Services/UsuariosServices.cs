@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using desafio_.Net.Models;
 using desafio_.Net.Repository;
 
-namespace desafio_.Net.Services.Impl
+namespace desafio_.Net.Services
 {
     public class UsuariosServices : IUsuariosServices
     {
-        private readonly UsuarioRepository _repositorio;
-        public UsuariosServices(UsuarioRepository rep)
+        private readonly IUsuarioRepository _repositorio;
+        public UsuariosServices(IUsuarioRepository rep)
         {
             _repositorio = rep;
         }
@@ -19,7 +19,12 @@ namespace desafio_.Net.Services.Impl
 
         public Usuario Find(long id)
         {
-            throw new System.NotImplementedException();
+            Usuario retorno = new Usuario();
+            retorno.firstName = "nome";
+            retorno.UsuarioID = 1;
+            retorno.lastName = "fim nome";
+
+            return retorno;
         }
 
         public IEnumerable<Usuario> GetAll()

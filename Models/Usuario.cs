@@ -14,5 +14,8 @@ namespace desafio_.Net.Models
         public string email { get; set; }
         public string password { get; set; }
         public ICollection<Phone> Phones { get; set; }
+
+
+        
     }
 }
