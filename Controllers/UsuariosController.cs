@@ -23,7 +23,7 @@ namespace desafio_.Net.Controllers
         [HttpGet]
         public IActionResult GetAll() {
 
-            return Ok( new {usuarios = _userService.GetAll()});
+            return new OkObjectResult(_userService.GetAll());
 
         }
 

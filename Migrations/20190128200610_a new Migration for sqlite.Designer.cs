@@ -9,8 +9,8 @@ using desafio_.Net.Contexts;
 namespace desafio.Net.Migrations
 {
     [DbContext(typeof(UsuarioDbContext))]
-    [Migration("20190128163511_First Migration")]
-    partial class FirstMigration
+    [Migration("20190128200610_a new Migration for sqlite")]
+    partial class anewMigrationforsqlite
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,7 @@ namespace desafio.Net.Migrations
 
                     b.Property<int>("area_code");
 
-                    b.Property<int>("coutry_code");
+                    b.Property<int>("country_code");
 
                     b.HasKey("number");
 

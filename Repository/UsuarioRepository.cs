@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using desafio_.Net.Contexts;
 using desafio_.Net.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace desafio_.Net.Repository
 {
@@ -22,7 +23,7 @@ namespace desafio_.Net.Repository
 
         public Usuario Find(long id)
         {
-            return _contextDb.Usuarios.FirstOrDefault(u => u.UsuarioID == id);
+            return _contextDb.Usuarios.Include(u => u.Phones).FirstOrDefault(u => u.UsuarioID == id);
         }
 
         public IEnumerable<Usuario> FindByEmail(string busca)
@@ -34,7 +35,7 @@ namespace desafio_.Net.Repository
 
         public IEnumerable<Usuario> GetAll()
         {
-            return _contextDb.Usuarios.ToList();
+            return _contextDb.Usuarios.Include(u => u.Phones).ToList();
         }
 
         public void Remove(long id)

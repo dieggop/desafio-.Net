@@ -25,7 +25,7 @@ namespace desafio.Net.Migrations
 
                     b.Property<int>("area_code");
 
-                    b.Property<int>("coutry_code");
+                    b.Property<int>("country_code");
 
                     b.HasKey("number");
 

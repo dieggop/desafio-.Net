@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace desafio_.Net.Models
 {
-    [Table("Usuarios")]
+    [Table("Usuarios")] 
     public class Usuario
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

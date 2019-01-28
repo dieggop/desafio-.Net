@@ -2,7 +2,7 @@
 
 namespace desafio.Net.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class anewMigrationforsqlite : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +29,7 @@ namespace desafio.Net.Migrations
                     number = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     area_code = table.Column<int>(nullable: false),
-                    coutry_code = table.Column<int>(nullable: false),
+                    country_code = table.Column<int>(nullable: false),
                     UsuarioID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
