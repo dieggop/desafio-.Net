@@ -9,6 +9,14 @@ namespace desafio_.Net.Contexts
         }
         
         public DbSet<Usuario> Usuarios {set; get;}
+        public DbSet<Phone> Phones {set; get;}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Phone>()
+                .HasOne(p => p.Usuario)
+                .WithMany(u => u.Phones);
+        }
 
     }
 }
