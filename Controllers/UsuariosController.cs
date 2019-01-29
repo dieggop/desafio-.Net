@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using desafio_.Net.Configuracoes;
 using desafio_.Net.Exceptions;
 using desafio_.Net.Models;
 using desafio_.Net.Services;
@@ -9,11 +10,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace desafio_.Net.Controllers
 {
     [Produces("application/json")]
-    [Route("api/usuarios")]
+    // [Route("api/usuarios")]
     public class UsuariosController : Controller
     {
 
@@ -23,14 +25,18 @@ namespace desafio_.Net.Controllers
             _userService = userServ;
         }
 
+        [Authorize()]
         [HttpGet]
+        [Route("all")]
         public IActionResult GetAll() {
 
             return new OkObjectResult(_userService.GetAll());
 
         }
 
+        [Authorize()]
         [HttpGet("{id}", Name="getUsuario")]
+        [Route("id")]
         public IActionResult GetById(int id)
         {
             Usuario retorno;
@@ -43,8 +49,26 @@ namespace desafio_.Net.Controllers
 
             return new ObjectResult(retorno);
         }
+        
+        [Authorize()]
+        [HttpGet]
+        [Route("me")]
+        public IActionResult GetMe(int id)
+        {
+            Usuario retorno;
+            try {
+                retorno = _userService.Find(id);
+            } catch (ExceptionExists e) {
+                return NotFound(new {message = e.Message, 
+                errorCode = 404});
+            }
+            
+            return new ObjectResult(retorno);
+        }
 
         [HttpPost]
+        [AllowAnonymous]
+        [Route("signup")]
         public IActionResult Create([FromBody] Usuario usuario) {
 
             if (usuario == null) BadRequest();
@@ -59,10 +83,12 @@ namespace desafio_.Net.Controllers
                 errorCode = 400});
             }
 
-            return CreatedAtRoute("getUsuario", new {id=usuario.UsuarioID}, usuario);
+            return Ok("You have successfully signed up");
         }
 
+        [Authorize()]
         [HttpDelete("{id}")]
+        [Route("delete")]
         public IActionResult Remove(int id) {
             
             try {
@@ -77,6 +103,7 @@ namespace desafio_.Net.Controllers
 
         [Authorize()]
         [HttpPut("{id}")]
+        [Route("update")]
         public IActionResult Update([FromBody] Usuario usuario, long id) {
 
             if (usuario == null || usuario.UsuarioID != id) {

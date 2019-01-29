@@ -12,6 +12,7 @@ using desafio_.Net.Exceptions;
 
 namespace desafio_.Net.Controllers
 {
+    [Route("signin")]
     public class TokenController : Controller
     {
         
@@ -31,7 +32,6 @@ namespace desafio_.Net.Controllers
             try {
                 bool logar = _userService.ValidaUsuario(request);
 
-            
                 var claims = new[]
                 {
                      new Claim(ClaimTypes.Name, request.email)

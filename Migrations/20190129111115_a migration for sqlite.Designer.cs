@@ -9,8 +9,8 @@ using desafio_.Net.Contexts;
 namespace desafio.Net.Migrations
 {
     [DbContext(typeof(DesafioDbContext))]
-    [Migration("20190129003722_new")]
-    partial class @new
+    [Migration("20190129111115_a migration for sqlite")]
+    partial class amigrationforsqlite
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,7 +58,8 @@ namespace desafio.Net.Migrations
                 {
                     b.HasOne("desafio_.Net.Models.Usuario", "Usuario")
                         .WithMany("Phones")
-                        .HasForeignKey("UsuarioID");
+                        .HasForeignKey("UsuarioID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -2,7 +2,7 @@
 
 namespace desafio.Net.Migrations
 {
-    public partial class @new : Migration
+    public partial class amigrationforsqlite : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,7 @@ namespace desafio.Net.Migrations
                         column: x => x.UsuarioID,
                         principalTable: "Usuarios",
                         principalColumn: "UsuarioID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

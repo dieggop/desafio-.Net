@@ -133,18 +133,18 @@ namespace desafio_.Net.Services
         {
 
             Usuario retorno = null;
-                retorno = _repositorio.FindByEmail(login.email).First();
+                retorno = _repositorio.FindByEmail(login.email).FirstOrDefault();
             if (retorno == null) {
                  throw new ExceptionExists("Invalid e-mail or password");
             }
 
             string passHashed =  _passwordHasher.HashPassword(retorno, login.password);
 
-            Usuario logar = null;
-            logar = _repositorio.FindUserByEmailAndPassword(login.email, passHashed);
+            PasswordVerificationResult logar = _passwordHasher.VerifyHashedPassword(retorno, retorno.password, login.password);
 
             
-            if (logar == null) {
+            if (logar.Equals(PasswordVerificationResult.Failed)) {
+                Console.WriteLine("Senha não bate");
                  throw new ExceptionExists("Invalid e-mail or password");
             }
             return true;
