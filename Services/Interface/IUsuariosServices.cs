@@ -9,6 +9,7 @@ namespace desafio_.Net.Services
         bool Add(Usuario user);
         IEnumerable<Usuario> GetAll();
         Usuario Find(long id);
+        Usuario ShowMe();
         IEnumerable<Usuario> FindByEmail(string Email);
         void Remove(long id);
         void Update(Usuario user);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using desafio_.Net.Configuracoes;
 using desafio_.Net.Exceptions;
@@ -7,6 +8,7 @@ using desafio_.Net.Models;
 using desafio_.Net.Models.DTO;
 using desafio_.Net.Repository;
 using desafio_.Net.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +19,15 @@ namespace desafio_.Net.Services
         private readonly IUsuarioRepository _repositorio;
         private readonly IPhoneRepository _repositorioPhone;
         private IPasswordHasher<Usuario> _passwordHasher;
- 
-        public UsuariosServices(IUsuarioRepository rep, IPhoneRepository pRep)
+         private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public UsuariosServices(IUsuarioRepository rep, IPhoneRepository pRep, IHttpContextAccessor httpContextAccessor)
         {
             _repositorio = rep;
             _repositorioPhone = pRep;
             _passwordHasher = new ConfigurablePasswordHasher();
+            _httpContextAccessor = httpContextAccessor;
+
         }
 
         public bool Add(Usuario user)
@@ -87,6 +92,20 @@ namespace desafio_.Net.Services
             return retorno;
         }
 
+        public Usuario ShowMe() {
+            string token = _httpContextAccessor.HttpContext.Request.Headers["Authorization"];
+
+            Usuario retorno = null;
+
+            var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token.Replace("Bearer ","")) as JwtSecurityToken;
+            Console.WriteLine("Claims");
+            
+           retorno = _repositorio.FindByEmail(jwt.Claims.ToList()[0].Value).FirstOrDefault();
+
+            if (retorno == null) throw new ExceptionExists("Unauthorized");
+
+            return retorno;
+        }
         public IEnumerable<Usuario> GetAll()
         {
            return _repositorio.GetAll();

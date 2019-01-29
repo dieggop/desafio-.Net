@@ -20,7 +20,7 @@ namespace desafio_.Net.Controllers
     {
 
         private readonly IUsuariosServices _userService;
-        public UsuariosController(IUsuariosServices userServ)
+        public UsuariosController(IUsuariosServices userServ )
         {
             _userService = userServ;
         }
@@ -53,11 +53,11 @@ namespace desafio_.Net.Controllers
         [Authorize()]
         [HttpGet]
         [Route("me")]
-        public IActionResult GetMe(int id)
+        public IActionResult GetMe()
         {
             Usuario retorno;
             try {
-                retorno = _userService.Find(id);
+                retorno = _userService.ShowMe();
             } catch (ExceptionExists e) {
                 return NotFound(new {message = e.Message, 
                 errorCode = 404});
