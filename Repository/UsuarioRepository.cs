@@ -31,7 +31,7 @@ namespace desafio_.Net.Repository
  
         public IEnumerable<Usuario> FindByEmail(string busca)
         {
-            return _contextDb.Usuarios.Where(
+            return _contextDb.Usuarios.Include(u => u.Phones).Where(
                 u => u.email.Contains(busca)
             );
         }

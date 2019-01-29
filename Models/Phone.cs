@@ -13,7 +13,7 @@ namespace desafio_.Net.Models
         public int area_code { get; set; }
         public int country_code { get; set; }
 
-        [DataMember]
-        public Usuario Usuario {get; set;}
+         
+        public virtual Usuario Usuario {get; set;}
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,7 +18,7 @@ namespace desafio_.Net.Models
         public string email { get; set; }
         public string password { get; set; }
         public ICollection<Phone> Phones { get; set; }
-
+        public DateTime CreatedAt { get; set; }
 
         
     }

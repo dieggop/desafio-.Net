@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using desafio_.Net.Contexts;
 
 namespace desafio.Net.Migrations
 {
     [DbContext(typeof(DesafioDbContext))]
-    partial class DesafioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190129201958_a migration for sqlite new")]
+    partial class amigrationforsqlitenew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

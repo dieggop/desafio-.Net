@@ -9,7 +9,7 @@ using desafio_.Net.Contexts;
 namespace desafio.Net.Migrations
 {
     [DbContext(typeof(DesafioDbContext))]
-    [Migration("20190129111115_a migration for sqlite")]
+    [Migration("20190129201759_a migration for sqlite")]
     partial class amigrationforsqlite
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,8 @@ namespace desafio.Net.Migrations
                 {
                     b.Property<int>("UsuarioID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("email");
 

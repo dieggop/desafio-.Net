@@ -4,6 +4,7 @@ using System.Net.Http;
 using desafio_.Net.Configuracoes;
 using desafio_.Net.Exceptions;
 using desafio_.Net.Models;
+using desafio_.Net.Models.DTO;
 using desafio_.Net.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -55,15 +56,28 @@ namespace desafio_.Net.Controllers
         [Route("me")]
         public IActionResult GetMe()
         {
-            Usuario retorno;
+            UsuarioDTO retorno;
             try {
-                retorno = _userService.ShowMe();
+                Usuario find = _userService.ShowMe();
+                retorno = mapperUsuarioToUsuarioDTO(find);
+
             } catch (ExceptionExists e) {
                 return NotFound(new {message = e.Message, 
                 errorCode = 404});
             }
             
             return new ObjectResult(retorno);
+        }
+
+        private UsuarioDTO mapperUsuarioToUsuarioDTO(Usuario find)
+        {
+            UsuarioDTO dto =  new UsuarioDTO();
+            dto.email = find.email;
+            dto.firstName =find.firstName;
+            dto.lastName =find.lastName;
+            dto.phones = find.Phones;
+            dto.created_at = find.CreatedAt.Date.ToString();
+            return dto;
         }
 
         [HttpPost]

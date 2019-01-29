@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace desafio.Net.Migrations
 {
@@ -15,7 +16,8 @@ namespace desafio.Net.Migrations
                     firstName = table.Column<string>(nullable: true),
                     lastName = table.Column<string>(nullable: true),
                     email = table.Column<string>(nullable: true),
-                    password = table.Column<string>(nullable: true)
+                    password = table.Column<string>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
