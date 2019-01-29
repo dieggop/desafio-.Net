@@ -3,6 +3,7 @@ using System.Linq;
 using desafio_.Net.Contexts;
 using desafio_.Net.Models;
 using desafio_.Net.Repository.Interface;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace desafio_.Net.Repository
@@ -33,6 +34,11 @@ namespace desafio_.Net.Repository
             return _contextDb.Usuarios.Where(
                 u => u.email.Contains(busca)
             );
+        }
+
+        public Usuario FindUserByEmailAndPassword(string email, string password)
+        {
+            return _contextDb.Usuarios.SingleOrDefault(x => x.email == email && x.password==password);
         }
 
         public IEnumerable<Usuario> GetAll()

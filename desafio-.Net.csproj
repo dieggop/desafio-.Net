@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.JWT" Version="5.4.0" />
   </ItemGroup>
 
   <ItemGroup>

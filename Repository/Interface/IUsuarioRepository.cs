@@ -11,6 +11,7 @@ namespace desafio_.Net.Repository.Interface
         IEnumerable<Usuario> FindByEmail(string email);
         void Remove(long id);
         void Update(Usuario user);
+        Usuario FindUserByEmailAndPassword(string email, string password);
 
     }
 }

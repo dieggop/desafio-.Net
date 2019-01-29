@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using desafio_.Net.Models;
+using desafio_.Net.Models.DTO;
 
 namespace desafio_.Net.Services
 {
@@ -11,5 +12,7 @@ namespace desafio_.Net.Services
         IEnumerable<Usuario> FindByEmail(string Email);
         void Remove(long id);
         void Update(Usuario user);
+
+        bool ValidaUsuario(UsuarioLogin login);
     }
 }

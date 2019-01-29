@@ -4,6 +4,7 @@ using System.Net.Http;
 using desafio_.Net.Exceptions;
 using desafio_.Net.Models;
 using desafio_.Net.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
@@ -29,7 +30,6 @@ namespace desafio_.Net.Controllers
 
         }
 
-        // GET api/values/5
         [HttpGet("{id}", Name="getUsuario")]
         public IActionResult GetById(int id)
         {
@@ -75,7 +75,7 @@ namespace desafio_.Net.Controllers
             return new NoContentResult();
         }
 
-
+        [Authorize()]
         [HttpPut("{id}")]
         public IActionResult Update([FromBody] Usuario usuario, long id) {
 

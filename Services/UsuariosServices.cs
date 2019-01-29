@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using desafio_.Net.Configuracoes;
 using desafio_.Net.Exceptions;
 using desafio_.Net.Models;
+using desafio_.Net.Models.DTO;
 using desafio_.Net.Repository;
 using desafio_.Net.Repository.Interface;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace desafio_.Net.Services
@@ -13,10 +16,13 @@ namespace desafio_.Net.Services
     {
         private readonly IUsuarioRepository _repositorio;
         private readonly IPhoneRepository _repositorioPhone;
+        private IPasswordHasher<Usuario> _passwordHasher;
+ 
         public UsuariosServices(IUsuarioRepository rep, IPhoneRepository pRep)
         {
             _repositorio = rep;
             _repositorioPhone = pRep;
+            _passwordHasher = new ConfigurablePasswordHasher();
         }
 
         public bool Add(Usuario user)
@@ -26,6 +32,7 @@ namespace desafio_.Net.Services
 
             checkIntegrity(user);
 
+            user.password = _passwordHasher.HashPassword(user, user.password);
             try {
                 _repositorio.Add(user);
             } catch (DbUpdateException e) {
@@ -107,8 +114,9 @@ namespace desafio_.Net.Services
             retorno.email = user.email;
             retorno.firstName = user.firstName;
             retorno.lastName = user.lastName;
-            retorno.password = user.password;
-            
+            if (!string.IsNullOrEmpty(user.password)) {
+                retorno.password = _passwordHasher.HashPassword(user, user.password);
+            }
             if (retorno.Phones.Count > 0) {
                 foreach (Phone p in retorno.Phones.ToList()) {
                     _repositorioPhone.Remove(p.number);
@@ -119,6 +127,27 @@ namespace desafio_.Net.Services
             retorno.Phones = user.Phones;
 
             _repositorio.Update(retorno);
+        }
+
+        public bool ValidaUsuario(UsuarioLogin login)
+        {
+
+            Usuario retorno = null;
+                retorno = _repositorio.FindByEmail(login.email).First();
+            if (retorno == null) {
+                 throw new ExceptionExists("Invalid e-mail or password");
+            }
+
+            string passHashed =  _passwordHasher.HashPassword(retorno, login.password);
+
+            Usuario logar = null;
+            logar = _repositorio.FindUserByEmailAndPassword(login.email, passHashed);
+
+            
+            if (logar == null) {
+                 throw new ExceptionExists("Invalid e-mail or password");
+            }
+            return true;
         }
     }
 }
