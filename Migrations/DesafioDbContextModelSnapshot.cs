@@ -7,8 +7,8 @@ using desafio_.Net.Contexts;
 
 namespace desafio.Net.Migrations
 {
-    [DbContext(typeof(UsuarioDbContext))]
-    partial class UsuarioDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(DesafioDbContext))]
+    partial class DesafioDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

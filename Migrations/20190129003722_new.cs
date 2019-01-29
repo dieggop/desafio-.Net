@@ -2,7 +2,7 @@
 
 namespace desafio.Net.Migrations
 {
-    public partial class anewMigrationforsqlite : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

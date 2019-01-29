@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using desafio_.Net.Contexts;
 using desafio_.Net.Repository;
+using desafio_.Net.Repository.Interface;
 using desafio_.Net.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,10 +33,11 @@ namespace desafio_.Net
         {
             var connection = Configuration["ConnectionsStrings:DefaultConnection"];
 
-            services.AddDbContext<UsuarioDbContext>(options => 
+            services.AddDbContext<DesafioDbContext>(options => 
             options.UseSqlite(connection)
             );
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IPhoneRepository, PhoneRepository>();
             services.AddTransient<IUsuariosServices, UsuariosServices>();
             
             services.AddMvc().AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);;

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using desafio_.Net.Models;
 
-namespace desafio_.Net.Repository
+namespace desafio_.Net.Repository.Interface
 {
     public interface IUsuarioRepository
     {

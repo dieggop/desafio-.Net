@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace desafio_.Net.Contexts
 {
-    public class UsuarioDbContext : DbContext
+    public class DesafioDbContext : DbContext
     {
-        public UsuarioDbContext(DbContextOptions<UsuarioDbContext> options) : base(options) {
+        public DesafioDbContext(DbContextOptions<DesafioDbContext> options) : base(options) {
         }
         
         public DbSet<Usuario> Usuarios {set; get;}
@@ -15,11 +15,9 @@ namespace desafio_.Net.Contexts
         {
             modelBuilder.Entity<Phone>()
                 .HasOne(p => p.Usuario)
-                .WithMany(u => u.Phones);
+                .WithMany(u => u.Phones)
+                .OnDelete(DeleteBehavior.Cascade);;
 
-            modelBuilder.Entity<Phone>()
-            .HasKey(p => p.number);
-            
             modelBuilder.Entity<Usuario>()
                 .Property(u => u.UsuarioID)
                 .ValueGeneratedOnAdd();

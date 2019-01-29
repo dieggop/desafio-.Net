@@ -8,9 +8,9 @@ using desafio_.Net.Contexts;
 
 namespace desafio.Net.Migrations
 {
-    [DbContext(typeof(UsuarioDbContext))]
-    [Migration("20190128200610_a new Migration for sqlite")]
-    partial class anewMigrationforsqlite
+    [DbContext(typeof(DesafioDbContext))]
+    [Migration("20190129003722_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

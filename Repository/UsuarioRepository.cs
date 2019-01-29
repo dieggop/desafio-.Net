@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using desafio_.Net.Contexts;
 using desafio_.Net.Models;
+using desafio_.Net.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace desafio_.Net.Repository
@@ -9,14 +10,15 @@ namespace desafio_.Net.Repository
     public class UsuarioRepository : IUsuarioRepository
     {
 
-        private readonly UsuarioDbContext _contextDb;
-        public UsuarioRepository(UsuarioDbContext ctx)
+        private readonly DesafioDbContext _contextDb;
+        public UsuarioRepository(DesafioDbContext ctx)
         {
             _contextDb = ctx;
         }
 
         public void Add(Usuario user)
         {
+            
             _contextDb.Usuarios.Add(user);
             _contextDb.SaveChanges();
         }
@@ -25,7 +27,7 @@ namespace desafio_.Net.Repository
         {
             return _contextDb.Usuarios.Include(u => u.Phones).FirstOrDefault(u => u.UsuarioID == id);
         }
-
+ 
         public IEnumerable<Usuario> FindByEmail(string busca)
         {
             return _contextDb.Usuarios.Where(

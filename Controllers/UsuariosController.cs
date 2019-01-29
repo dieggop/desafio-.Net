@@ -6,6 +6,8 @@ using desafio_.Net.Models;
 using desafio_.Net.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace desafio_.Net.Controllers
 {
@@ -28,12 +30,16 @@ namespace desafio_.Net.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="getUsuario")]
         public IActionResult GetById(int id)
         {
-            Usuario retorno = _userService.Find(id);
-            
-            if (retorno == null) { return NotFound(); }
+            Usuario retorno;
+            try {
+                retorno = _userService.Find(id);
+            } catch (ExceptionExists e) {
+                return NotFound(new {message = e.Message, 
+                errorCode = 404});
+            }
 
             return new ObjectResult(retorno);
         }
@@ -53,8 +59,47 @@ namespace desafio_.Net.Controllers
                 errorCode = 400});
             }
 
-            return Ok();
+            return CreatedAtRoute("getUsuario", new {id=usuario.UsuarioID}, usuario);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id) {
+            
+            try {
+                _userService.Remove(id);
+            } catch (ExceptionExists e) {
+                return NotFound(new {message = e.Message, 
+                errorCode = 404});
+            }
+
+            return new NoContentResult();
+        }
+
+
+        [HttpPut("{id}")]
+        public IActionResult Update([FromBody] Usuario usuario, long id) {
+
+            if (usuario == null || usuario.UsuarioID != id) {
+                return BadRequest(new {message = "Payload error", 
+                errorCode = 400});
+            }
+            try {
+                _userService.Update(usuario);
+            } catch(ExceptionOfBusiness e ) {
+                return BadRequest(new {message = e.Message, 
+                errorCode = 400});
+            } catch(ExceptionExists e) {
+                return BadRequest(new {message = e.Message, 
+                errorCode = 400});
+            } catch(SqliteException e) {
+                return BadRequest(new {message = e.Message, 
+                errorCode = 400});
+            }catch(DbUpdateException e) {
+                return BadRequest(new {message = e.Message, 
+                errorCode = 400});
+            }
+
+            return new NoContentResult();
+        }
     }
 }
