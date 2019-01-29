@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
@@ -55,6 +54,7 @@ namespace desafio_.Net.Controllers
                     token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
             } catch (ExceptionExists e) {
+                Console.WriteLine(e.Message);
                 return BadRequest(new {message = "Invalid e-mail or password", 
                     errorCode = 400});
             }
